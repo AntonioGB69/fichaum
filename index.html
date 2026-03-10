@@ -1,1 +1,1238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Personagem RPG - Universal</title>
+    <style>
+        /* ==================== VARIÁVEIS CSS ==================== */
+        :root {
+            --cor-principal: #4a90e2;
+            --cor-fundo: #f5f5f5;
+            --cor-card: #ffffff;
+            --cor-texto: #333333;
+            --cor-borda: #dddddd;
+            --tamanho-fonte: 16px;
+            --sombra-card: 0 2px 8px rgba(0,0,0,0.1);
+        }
 
+        /* ==================== RESET E BASE ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            font-size: var(--tamanho-fonte);
+            line-height: 1.6;
+        }
+
+        /* ==================== CONTAINER PRINCIPAL ==================== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ==================== HEADER ==================== */
+        header {
+            background: linear-gradient(135deg, var(--cor-principal), #357abd);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: var(--sombra-card);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        /* ==================== BARRA DE AÇÕES ==================== */
+        .action-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--cor-card);
+            border-radius: 10px;
+            box-shadow: var(--sombra-card);
+        }
+
+        /* ==================== BOTÕES ==================== */
+        button, .btn {
+            background-color: var(--cor-principal);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        button:hover, .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        button.btn-secondary {
+            background-color: #6c757d;
+        }
+
+        button.btn-danger {
+            background-color: #dc3545;
+        }
+
+        button.btn-success {
+            background-color: #28a745;
+        }
+
+        button.btn-small {
+            padding: 5px 10px;
+            font-size: 0.9em;
+        }
+
+        /* ==================== CARDS/SEÇÕES ==================== */
+        .card {
+            background-color: var(--cor-card);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--sombra-card);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--cor-principal);
+        }
+
+        .card-header h2 {
+            color: var(--cor-principal);
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .edit-title {
+            background: none;
+            border: none;
+            color: var(--cor-principal);
+            cursor: pointer;
+            font-size: 0.8em;
+            opacity: 0.6;
+        }
+
+        .edit-title:hover {
+            opacity: 1;
+        }
+
+        /* ==================== FORMULÁRIOS ==================== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--cor-texto);
+        }
+
+        input, textarea, select {
+            padding: 10px;
+            border: 1px solid var(--cor-borda);
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--cor-principal);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input[type="number"] {
+            max-width: 150px;
+        }
+
+        input[type="color"] {
+            height: 40px;
+            cursor: pointer;
+        }
+
+        /* ==================== TABELAS ==================== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--cor-borda);
+        }
+
+        th {
+            background-color: var(--cor-principal);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: rgba(74, 144, 226, 0.05);
+        }
+
+        /* ==================== LISTAS DINÂMICAS ==================== */
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .item-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--cor-principal);
+            position: relative;
+        }
+
+        .item-remove {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* ==================== SEÇÃO DE ROLAGEM DE DADOS ==================== */
+        .dice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .dice-button {
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .dice-result {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid var(--cor-principal);
+        }
+
+        .dice-result h3 {
+            color: var(--cor-principal);
+            margin-bottom: 10px;
+        }
+
+        .roll-history {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .roll-item {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        /* ==================== ALERTAS E NOTIFICAÇÕES ==================== */
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+
+        /* ==================== RESPONSIVIDADE ==================== */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-bar {
+                flex-direction: column;
+            }
+
+            .dice-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+
+        /* ==================== TAMANHOS DE FONTE ==================== */
+        body.font-small {
+            --tamanho-fonte: 14px;
+        }
+
+        body.font-large {
+            --tamanho-fonte: 18px;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            margin-top: 40px;
+        }
+
+        /* ==================== PROGRESS BAR ==================== */
+        .progress-bar {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 25px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--cor-principal), #357abd);
+            height: 100%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        /* ==================== RECURSOS (HP/MANA) ==================== */
+        .resource-bar {
+            margin-bottom: 15px;
+        }
+
+        .resource-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .resource-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .resource-inputs input {
+            max-width: 80px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== HEADER ==================== -->
+    <header>
+        <h1>🎲 Ficha de Personagem RPG</h1>
+        <p>Sistema Universal - 100% Customizável</p>
+    </header>
+
+    <!-- ==================== CONTAINER PRINCIPAL ==================== -->
+    <div class="container">
+        <!-- ==================== BARRA DE AÇÕES ==================== -->
+        <div class="action-bar">
+            <button onclick="salvarFicha()" class="btn-success">💾 Salvar Ficha</button>
+            <button onclick="carregarFicha()" class="btn-secondary">📂 Carregar Ficha</button>
+            <button onclick="limparFicha()" class="btn-danger">🗑️ Limpar Tudo</button>
+            <button onclick="toggleConfig()" class="btn-secondary">⚙️ Configurações</button>
+        </div>
+
+        <!-- ==================== SEÇÃO DE CONFIGURAÇÕES ==================== -->
+        <div id="configSection" class="card" style="display: none;">
+            <div class="card-header">
+                <h2>⚙️ Configurações</h2>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="corPrincipal">Cor Principal:</label>
+                    <input type="color" id="corPrincipal" value="#4a90e2" onchange="aplicarCores()">
+                </div>
+                <div class="form-group">
+                    <label for="corFundo">Cor de Fundo:</label>
+                    <input type="color" id="corFundo" value="#f5f5f5" onchange="aplicarCores()">
+                </div>
+                <div class="form-group">
+                    <label for="tamanhoFonte">Tamanho da Fonte:</label>
+                    <select id="tamanhoFonte" onchange="aplicarTamanhoFonte()">
+                        <option value="font-small">Pequena</option>
+                        <option value="" selected>Média</option>
+                        <option value="font-large">Grande</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PERFIL / DADOS GERAIS ==================== -->
+        <main>
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="titulo-perfil">👤 Perfil do Personagem</h2>
+                    <button class="edit-title btn-small" onclick="editarTitulo('perfil')">✏️ Renomear</button>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nomePersonagem">Nome do Personagem:</label>
+                        <input type="text" id="nomePersonagem" placeholder="Digite o nome do personagem">
+                    </div>
+                    <div class="form-group">
+                        <label for="nomeJogador">Nome do Jogador:</label>
+                        <input type="text" id="nomeJogador" placeholder="Digite seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="raca">Raça / Espécie:</label>
+                        <input type="text" id="raca" placeholder="Ex: Humano, Elfo, Androide...">
+                    </div>
+                    <div class="form-group">
+                        <label for="classe">Classe / Profissão:</label>
+                        <input type="text" id="classe" placeholder="Ex: Guerreiro, Hacker, Mago...">
+                    </div>
+                    <div class="form-group">
+                        <label for="idade">Idade:</label>
+                        <input type="number" id="idade" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="genero">Sexo / Gênero:</label>
+                        <input type="text" id="genero" placeholder="Digite o gênero">
+                    </div>
+                    <div class="form-group">
+                        <label for="altura">Altura:</label>
+                        <input type="text" id="altura" placeholder="Ex: 1,75m">
+                    </div>
+                    <div class="form-group">
+                        <label for="peso">Peso:</label>
+                        <input type="text" id="peso" placeholder="Ex: 70kg">
+                    </div>
+                    <div class="form-group">
+                        <label for="alinhamento">Alinhamento:</label>
+                        <input type="text" id="alinhamento" placeholder="Ex: Neutro Bom">
+                    </div>
+                    <div class="form-group">
+                        <label for="origem">Origem / Local de Nascimento:</label>
+                        <input type="text" id="origem" placeholder="Digite a origem">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label for="historia">História / Background:</label>
+                    <textarea id="historia" rows="6" placeholder="Escreva a história do seu personagem..."></textarea>
+                </div>
+            </section>
+
+            <!-- ==================== PROGRESSO: NÍVEL E EXPERIÊNCIA ==================== -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="titulo-progresso">📊 Progresso e Experiência</h2>
+                    <button class="edit-title btn-small" onclick="editarTitulo('progresso')">✏️ Renomear</button>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nivel">Nível Atual:</label>
+                        <input type="number" id="nivel" value="1" min="1" onchange="atualizarXPNecessario()">
+                    </div>
+                    <div class="form-group">
+                        <label for="xpAtual">XP Atual:</label>
+                        <input type="number" id="xpAtual" value="0" min="0" onchange="verificarSubidaNivel()">
+                    </div>
+                    <div class="form-group">
+                        <label for="xpNecessario">XP para Próximo Nível:</label>
+                        <input type="number" id="xpNecessario" value="100" min="1" onchange="verificarSubidaNivel()">
+                    </div>
+                    <div class="form-group">
+                        <label for="titulo">Título / Ranque:</label>
+                        <input type="text" id="titulo" placeholder="Ex: Aprendiz, Mestre...">
+                    </div>
+                </div>
+                
+                <div id="alertaSubidaNivel" style="display: none;" class="alert alert-success">
+                    🎉 <strong>Parabéns!</strong> Você tem XP suficiente para subir de nível!
+                </div>
+
+                <div class="progress-bar">
+                    <div id="xpProgress" class="progress-fill" style="width: 0%;">0%</div>
+                </div>
+
+                <div style="margin-top: 20px; display: flex; gap: 10px; align-items: center;">
+                    <input type="number" id="xpAdicionar" placeholder="Quantidade de XP" min="1" style="max-width: 200px;">
+                    <button onclick="adicionarXP()">➕ Adicionar XP</button>
+                </div>
+            </section>
+
+            <!-- ==================== ATRIBUTOS / STATUS PRINCIPAIS ==================== -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="titulo-atributos">💪 Atributos</h2>
+                    <button class="edit-title btn-small" onclick="editarTitulo('atributos')">✏️ Renomear</button>
+                </div>
+                <table id="tabelaAtributos">
+                    <thead>
+                        <tr>
+                            <th>Nome do Atributo</th>
+                            <th>Valor Base</th>
+                            <th>Modificador</th>
+                            <th>Total</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="atributosBody">
+                        <!-- Atributos serão adicionados aqui dinamicamente -->
+                    </tbody>
+                </table>
+                <button onclick="adicionarAtributo()" style="margin-top: 15px;">➕ Adicionar Atributo</button>
+            </section>
+
+            <!-- ==================== RECURSOS GERAIS (HP, MANA, ETC) ==================== -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="titulo-recursos">❤️ Recursos</h2>
+                    <button class="edit-title btn-small" onclick="editarTitulo('recursos')">✏️ Renomear</button>
+                </div>
+                
+                <!-- Recursos fixos: Vida e Mana/Energia -->
+                <div class="resource-bar">
+                    <div class="resource-display">
+                        <label style="margin: 0;">Vida / HP:</label>
+                        <span id="displayVida">0 / 0</span>
+                    </div>
+                    <div class="resource-inputs">
+                        <input type="number" id="vidaAtual" value="0" min="0" placeholder="Atual" onchange="atualizarRecursoFixo('vida')">
+                        <span>/</span>
+                        <input type="number" id="vidaMax" value="0" min="0" placeholder="Máximo" onchange="atualizarRecursoFixo('vida')">
+                    </div>
+                    <div class="progress-bar">
+                        <div id="barraVida" class="progress-fill" style="width: 100%; background: linear-gradient(90deg, #dc3545, #c82333);">100%</div>
+                    </div>
+                </div>
+
+                <div class="resource-bar">
+                    <div class="resource-display">
+                        <label style="margin: 0;">Mana / Energia:</label>
+                        <span id="displayMana">0 / 0</span>
+                    </div>
+                    <div class="resource-inputs">
+                        <input type="number" id="manaAtual" value="0" min="0" placeholder="Atual" onchange="atualizarRecursoFixo('mana')">
+                        <span>/</span>
+                        <input type="number" id="manaMax" value="0" min="0" placeholder="Máximo" onchange="atualizarRecursoFixo('mana')">
+                    </div>
+                    <div class="progress-bar">
+                        <div id="barraMana" class="progress-fill" style="width: 100%; background: linear-gradient(90deg, #007bff, #0056b3);">100%</div>
+                    </div>
+                </div>
+
+                <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--cor-borda);">
+
+                <!-- Recursos customizáveis -->
+                <h3 style="margin-bottom: 15px;">Recursos Customizados:</h3>
+                <div id="recursosCustom"></div>
+                <button onclick="adicionarRecursoCustom()" style="margin-top: 15px;">➕ Adicionar Recurso</button>
+            </section>
+
+            <!-- ==================== HABILIDADES ATIVAS E PASSIVAS ==================== -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="titulo-habilidades">✨ Habilidades</h2>
+                    <button class="edit-title btn-small" onclick="editarTitulo('habilidades')">✏️ Renomear</button>
+                </div>
+                <div id="listaHabilidades" class="item-list">
+                    <!-- Habilidades serão adicionadas aqui -->
+                </div>
+                <button onclick="adicionarHabilidade()" style="margin-top: 15px;">➕ Adicionar Habilidade</button>
+            </section>
+
+            <!-- ==================== INVENTÁRIO / EQUIPAMENTOS ==================== -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="titulo-inventario">🎒 Inventário</h2>
+                    <button class="edit-title btn-small" onclick="editarTitulo('inventario')">✏️ Renomear</button>
+                </div>
+                <div id="listaInventario" class="item-list">
+                    <!-- Itens serão adicionados aqui -->
+                </div>
+                <button onclick="adicionarItem()" style="margin-top: 15px;">➕ Adicionar Item</button>
+            </section>
+
+            <!-- ==================== PERÍCIAS / SKILLS ==================== -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="titulo-pericias">🎯 Perícias</h2>
+                    <button class="edit-title btn-small" onclick="editarTitulo('pericias')">✏️ Renomear</button>
+                </div>
+                <table id="tabelaPericias">
+                    <thead>
+                        <tr>
+                            <th>Nome da Perícia</th>
+                            <th>Valor / Rank</th>
+                            <th>Atributo Relacionado</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="periciastBody">
+                        <!-- Perícias serão adicionadas aqui -->
+                    </tbody>
+                </table>
+                <button onclick="adicionarPericia()" style="margin-top: 15px;">➕ Adicionar Perícia</button>
+            </section>
+
+            <!-- ==================== SISTEMA DE ROLAGEM DE DADOS ==================== -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="titulo-dados">🎲 Sistema de Dados</h2>
+                    <button class="edit-title btn-small" onclick="editarTitulo('dados')">✏️ Renomear</button>
+                </div>
+                
+                <h3>Dados Rápidos:</h3>
+                <div class="dice-grid">
+                    <button class="dice-button btn-success" onclick="rolarDado(4)">d4</button>
+                    <button class="dice-button btn-success" onclick="rolarDado(6)">d6</button>
+                    <button class="dice-button btn-success" onclick="rolarDado(8)">d8</button>
+                    <button class="dice-button btn-success" onclick="rolarDado(10)">d10</button>
+                    <button class="dice-button btn-success" onclick="rolarDado(12)">d12</button>
+                    <button class="dice-button btn-success" onclick="rolarDado(20)">d20</button>
+                    <button class="dice-button btn-success" onclick="rolarDado(100)">d100</button>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <h3>Rolagem Customizada:</h3>
+                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <input type="number" id="quantidadeDados" value="1" min="1" placeholder="Qtd" style="max-width: 80px;">
+                        <span>d</span>
+                        <input type="number" id="tiposDado" value="20" min="1" placeholder="Tipo" style="max-width: 80px;">
+                        <span>+</span>
+                        <input type="number" id="modificadorDado" value="0" placeholder="Mod" style="max-width: 80px;">
+                        <button onclick="rolarDadoCustomizado()">🎲 Rolar</button>
+                    </div>
+                </div>
+
+                <div id="resultadoDado" class="dice-result" style="display: none;">
+                    <h3>Resultado:</h3>
+                    <p id="textoResultado"></p>
+                </div>
+
+                <div class="roll-history">
+                    <h3>Histórico de Rolagens:</h3>
+                    <div id="historicoRolagens"></div>
+                </div>
+            </section>
+
+            <!-- ==================== ANOTAÇÕES GERAIS ==================== -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="titulo-anotacoes">📝 Anotações</h2>
+                    <button class="edit-title btn-small" onclick="editarTitulo('anotacoes')">✏️ Renomear</button>
+                </div>
+                <textarea id="anotacoes" rows="10" placeholder="Escreva suas anotações, observações de sessão, lembretes..."></textarea>
+            </section>
+        </main>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <p>📜 Ficha de Personagem RPG Universal | Desenvolvido com ❤️ para RPGistas</p>
+        <p style="font-size: 0.9em; margin-top: 5px;">© 2024 - Todos os dados são salvos localmente no seu navegador</p>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // ==================== VARIÁVEIS GLOBAIS ====================
+        let fichaData = {
+            perfil: {},
+            atributos: [],
+            recursos: [],
+            habilidades: [],
+            inventario: [],
+            pericias: [],
+            anotacoes: '',
+            historicoRolagens: []
+        };
+
+        // ==================== INICIALIZAÇÃO ====================
+        window.onload = function() {
+            inicializarAtributosPadrao();
+            carregarFichaAutomatica();
+            atualizarRecursoFixo('vida');
+            atualizarRecursoFixo('mana');
+            atualizarXPNecessario();
+        };
+
+        // ==================== FUNÇÕES DE CONFIGURAÇÃO ====================
+        function toggleConfig() {
+            const configSection = document.getElementById('configSection');
+            configSection.style.display = configSection.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function aplicarCores() {
+            const corPrincipal = document.getElementById('corPrincipal').value;
+            const corFundo = document.getElementById('corFundo').value;
+            document.documentElement.style.setProperty('--cor-principal', corPrincipal);
+            document.documentElement.style.setProperty('--cor-fundo', corFundo);
+        }
+
+        function aplicarTamanhoFonte() {
+            const tamanho = document.getElementById('tamanhoFonte').value;
+            document.body.className = tamanho;
+        }
+
+        function editarTitulo(secao) {
+            const elementoId = `titulo-${secao}`;
+            const elemento = document.getElementById(elementoId);
+            const novoTitulo = prompt('Digite o novo título para esta seção:', elemento.textContent.trim());
+            if (novoTitulo && novoTitulo.trim() !== '') {
+                elemento.textContent = novoTitulo.trim();
+            }
+        }
+
+        // ==================== ATRIBUTOS ====================
+        function inicializarAtributosPadrao() {
+            const atributosPadrao = [
+                { nome: 'Força', base: 10, modificador: 0 },
+                { nome: 'Destreza', base: 10, modificador: 0 },
+                { nome: 'Constituição', base: 10, modificador: 0 },
+                { nome: 'Inteligência', base: 10, modificador: 0 },
+                { nome: 'Sabedoria', base: 10, modificador: 0 },
+                { nome: 'Carisma', base: 10, modificador: 0 }
+            ];
+            
+            atributosPadrao.forEach(attr => {
+                fichaData.atributos.push(attr);
+                renderizarAtributo(attr);
+            });
+        }
+
+        function adicionarAtributo() {
+            const nomeAtributo = prompt('Nome do novo atributo:');
+            if (!nomeAtributo) return;
+
+            const novoAtributo = {
+                nome: nomeAtributo,
+                base: 10,
+                modificador: 0
+            };
+
+            fichaData.atributos.push(novoAtributo);
+            renderizarAtributo(novoAtributo);
+        }
+
+        function renderizarAtributo(atributo) {
+            const tbody = document.getElementById('atributosBody');
+            const index = fichaData.atributos.indexOf(atributo);
+            
+            const row = tbody.insertRow();
+            row.innerHTML = `
+                <td>${atributo.nome}</td>
+                <td><input type="number" value="${atributo.base}" onchange="atualizarAtributo(${index}, 'base', this.value)" style="max-width: 100px;"></td>
+                <td><input type="number" value="${atributo.modificador}" onchange="atualizarAtributo(${index}, 'modificador', this.value)" style="max-width: 100px;"></td>
+                <td><strong id="total-${index}">${atributo.base + atributo.modificador}</strong></td>
+                <td><button class="btn-danger btn-small" onclick="removerAtributo(${index})">🗑️</button></td>
+            `;
+        }
+
+        function atualizarAtributo(index, campo, valor) {
+            fichaData.atributos[index][campo] = parseInt(valor) || 0;
+            const total = fichaData.atributos[index].base + fichaData.atributos[index].modificador;
+            document.getElementById(`total-${index}`).textContent = total;
+        }
+
+        function removerAtributo(index) {
+            if (!confirm('Remover este atributo?')) return;
+            fichaData.atributos.splice(index, 1);
+            recarregarAtributos();
+        }
+
+        function recarregarAtributos() {
+            const tbody = document.getElementById('atributosBody');
+            tbody.innerHTML = '';
+            fichaData.atributos.forEach(attr => renderizarAtributo(attr));
+        }
+
+        // ==================== RECURSOS ====================
+        function atualizarRecursoFixo(tipo) {
+            const atual = parseInt(document.getElementById(`${tipo}Atual`).value) || 0;
+            const max = parseInt(document.getElementById(`${tipo}Max`).value) || 0;
+            
+            const porcentagem = max > 0 ? Math.round((atual / max) * 100) : 0;
+            
+            document.getElementById(`display${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`).textContent = `${atual} / ${max}`;
+            
+            const barra = document.getElementById(`barra${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`);
+            barra.style.width = `${Math.min(porcentagem, 100)}%`;
+            barra.textContent = `${porcentagem}%`;
+        }
+
+        function adicionarRecursoCustom() {
+            const nome = prompt('Nome do recurso:');
+            if (!nome) return;
+
+            const recurso = {
+                nome: nome,
+                atual: 0,
+                max: 0
+            };
+
+            fichaData.recursos.push(recurso);
+            renderizarRecursoCustom(recurso);
+        }
+
+        function renderizarRecursoCustom(recurso) {
+            const container = document.getElementById('recursosCustom');
+            const index = fichaData.recursos.indexOf(recurso);
+            
+            const div = document.createElement('div');
+            div.className = 'resource-bar';
+            div.id = `recurso-${index}`;
+            div.innerHTML = `
+                <div class="resource-display">
+                    <label style="margin: 0;">${recurso.nome}:</label>
+                    <span id="display-recurso-${index}">${recurso.atual} / ${recurso.max}</span>
+                    <button class="btn-danger btn-small" onclick="removerRecurso(${index})">🗑️</button>
+                </div>
+                <div class="resource-inputs">
+                    <input type="number" value="${recurso.atual}" min="0" placeholder="Atual" onchange="atualizarRecursoCustom(${index}, 'atual', this.value)">
+                    <span>/</span>
+                    <input type="number" value="${recurso.max}" min="0" placeholder="Máximo" onchange="atualizarRecursoCustom(${index}, 'max', this.value)">
+                </div>
+                <div class="progress-bar">
+                    <div id="barra-recurso-${index}" class="progress-fill" style="width: 100%;">100%</div>
+                </div>
+            `;
+            
+            container.appendChild(div);
+        }
+
+        function atualizarRecursoCustom(index, campo, valor) {
+            fichaData.recursos[index][campo] = parseInt(valor) || 0;
+            const recurso = fichaData.recursos[index];
+            const porcentagem = recurso.max > 0 ? Math.round((recurso.atual / recurso.max) * 100) : 0;
+            
+            document.getElementById(`display-recurso-${index}`).textContent = `${recurso.atual} / ${recurso.max}`;
+            const barra = document.getElementById(`barra-recurso-${index}`);
+            barra.style.width = `${Math.min(porcentagem, 100)}%`;
+            barra.textContent = `${porcentagem}%`;
+        }
+
+        function removerRecurso(index) {
+            if (!confirm('Remover este recurso?')) return;
+            fichaData.recursos.splice(index, 1);
+            recarregarRecursos();
+        }
+
+        function recarregarRecursos() {
+            const container = document.getElementById('recursosCustom');
+            container.innerHTML = '';
+            fichaData.recursos.forEach(rec => renderizarRecursoCustom(rec));
+        }
+
+        // ==================== EXPERIÊNCIA E NÍVEL ====================
+        function atualizarXPNecessario() {
+            const nivel = parseInt(document.getElementById('nivel').value) || 1;
+            const xpNecessario = nivel * 100; // Fórmula simples: nível * 100
+            document.getElementById('xpNecessario').value = xpNecessario;
+            verificarSubidaNivel();
+        }
+
+        function verificarSubidaNivel() {
+            const xpAtual = parseInt(document.getElementById('xpAtual').value) || 0;
+            const xpNecessario = parseInt(document.getElementById('xpNecessario').value) || 100;
+            
+            const porcentagem = Math.round((xpAtual / xpNecessario) * 100);
+            const barra = document.getElementById('xpProgress');
+            barra.style.width = `${Math.min(porcentagem, 100)}%`;
+            barra.textContent = `${porcentagem}%`;
+            
+            const alerta = document.getElementById('alertaSubidaNivel');
+            if (xpAtual >= xpNecessario) {
+                alerta.style.display = 'block';
+            } else {
+                alerta.style.display = 'none';
+            }
+        }
+
+        function adicionarXP() {
+            const quantidade = parseInt(document.getElementById('xpAdicionar').value) || 0;
+            if (quantidade <= 0) {
+                alert('Digite uma quantidade válida de XP!');
+                return;
+            }
+            
+            const xpAtual = parseInt(document.getElementById('xpAtual').value) || 0;
+            document.getElementById('xpAtual').value = xpAtual + quantidade;
+            document.getElementById('xpAdicionar').value = '';
+            verificarSubidaNivel();
+        }
+
+        // ==================== HABILIDADES ====================
+        function adicionarHabilidade() {
+            const nome = prompt('Nome da habilidade:');
+            if (!nome) return;
+
+            const habilidade = {
+                nome: nome,
+                descricao: '',
+                custo: '',
+                tipo: 'Ativa'
+            };
+
+            fichaData.habilidades.push(habilidade);
+            renderizarHabilidade(habilidade);
+        }
+
+        function renderizarHabilidade(habilidade) {
+            const container = document.getElementById('listaHabilidades');
+            const index = fichaData.habilidades.indexOf(habilidade);
+            
+            const div = document.createElement('div');
+            div.className = 'item-card';
+            div.id = `habilidade-${index}`;
+            div.innerHTML = `
+                <button class="item-remove btn-danger btn-small" onclick="removerHabilidade(${index})">🗑️</button>
+                <h3>${habilidade.nome}</h3>
+                <p><strong>Tipo:</strong> <select onchange="fichaData.habilidades[${index}].tipo = this.value">
+                    <option value="Ativa" ${habilidade.tipo === 'Ativa' ? 'selected' : ''}>Ativa</option>
+                    <option value="Passiva" ${habilidade.tipo === 'Passiva' ? 'selected' : ''}>Passiva</option>
+                </select></p>
+                <p><strong>Custo:</strong> <input type="text" value="${habilidade.custo}" onchange="fichaData.habilidades[${index}].custo = this.value" placeholder="Ex: 10 MP"></p>
+                <p><strong>Descrição:</strong></p>
+                <textarea rows="3" onchange="fichaData.habilidades[${index}].descricao = this.value" placeholder="Descreva os efeitos...">${habilidade.descricao}</textarea>
+            `;
+            
+            container.appendChild(div);
+        }
+
+        function removerHabilidade(index) {
+            if (!confirm('Remover esta habilidade?')) return;
+            fichaData.habilidades.splice(index, 1);
+            recarregarHabilidades();
+        }
+
+        function recarregarHabilidades() {
+            const container = document.getElementById('listaHabilidades');
+            container.innerHTML = '';
+            fichaData.habilidades.forEach(hab => renderizarHabilidade(hab));
+        }
+
+        // ==================== INVENTÁRIO ====================
+        function adicionarItem() {
+            const nome = prompt('Nome do item:');
+            if (!nome) return;
+
+            const item = {
+                nome: nome,
+                quantidade: 1,
+                descricao: ''
+            };
+
+            fichaData.inventario.push(item);
+            renderizarItem(item);
+        }
+
+        function renderizarItem(item) {
+            const container = document.getElementById('listaInventario');
+            const index = fichaData.inventario.indexOf(item);
+            
+            const div = document.createElement('div');
+            div.className = 'item-card';
+            div.id = `item-${index}`;
+            div.innerHTML = `
+                <button class="item-remove btn-danger btn-small" onclick="removerItem(${index})">🗑️</button>
+                <h3>${item.nome}</h3>
+                <p><strong>Quantidade:</strong> <input type="number" value="${item.quantidade}" min="1" onchange="fichaData.inventario[${index}].quantidade = parseInt(this.value)" style="max-width: 80px;"></p>
+                <p><strong>Descrição:</strong></p>
+                <textarea rows="2" onchange="fichaData.inventario[${index}].descricao = this.value" placeholder="Descreva o item...">${item.descricao}</textarea>
+            `;
+            
+            container.appendChild(div);
+        }
+
+        function removerItem(index) {
+            if (!confirm('Remover este item?')) return;
+            fichaData.inventario.splice(index, 1);
+            recarregarInventario();
+        }
+
+        function recarregarInventario() {
+            const container = document.getElementById('listaInventario');
+            container.innerHTML = '';
+            fichaData.inventario.forEach(item => renderizarItem(item));
+        }
+
+        // ==================== PERÍCIAS ====================
+        function adicionarPericia() {
+            const nome = prompt('Nome da perícia:');
+            if (!nome) return;
+
+            const pericia = {
+                nome: nome,
+                valor: 0,
+                atributo: ''
+            };
+
+            fichaData.pericias.push(pericia);
+            renderizarPericia(pericia);
+        }
+
+        function renderizarPericia(pericia) {
+            const tbody = document.getElementById('periciastBody');
+            const index = fichaData.pericias.indexOf(pericia);
+            
+            const row = tbody.insertRow();
+            row.innerHTML = `
+                <td>${pericia.nome}</td>
+                <td><input type="number" value="${pericia.valor}" onchange="fichaData.pericias[${index}].valor = parseInt(this.value)" style="max-width: 100px;"></td>
+                <td><input type="text" value="${pericia.atributo}" onchange="fichaData.pericias[${index}].atributo = this.value" placeholder="Ex: Destreza"></td>
+                <td><button class="btn-danger btn-small" onclick="removerPericia(${index})">🗑️</button></td>
+            `;
+        }
+
+        function removerPericia(index) {
+            if (!confirm('Remover esta perícia?')) return;
+            fichaData.pericias.splice(index, 1);
+            recarregarPericias();
+        }
+
+        function recarregarPericias() {
+            const tbody = document.getElementById('periciastBody');
+            tbody.innerHTML = '';
+            fichaData.pericias.forEach(per => renderizarPericia(per));
+        }
+
+        // ==================== SISTEMA DE DADOS ====================
+        function rolarDado(lados) {
+            const resultado = Math.floor(Math.random() * lados) + 1;
+            mostrarResultadoDado(`d${lados}`, resultado, 0, resultado);
+            adicionarHistorico(`1d${lados}`, resultado);
+        }
+
+        function rolarDadoCustomizado() {
+            const quantidade = parseInt(document.getElementById('quantidadeDados').value) || 1;
+            const tipo = parseInt(document.getElementById('tiposDado').value) || 20;
+            const modificador = parseInt(document.getElementById('modificadorDado').value) || 0;
+            
+            let resultados = [];
+            let soma = 0;
+            
+            for (let i = 0; i < quantidade; i++) {
+                const rolagem = Math.floor(Math.random() * tipo) + 1;
+                resultados.push(rolagem);
+                soma += rolagem;
+            }
+            
+            const total = soma + modificador;
+            mostrarResultadoDado(`${quantidade}d${tipo}${modificador >= 0 ? '+' : ''}${modificador}`, soma, modificador, total, resultados);
+            adicionarHistorico(`${quantidade}d${tipo}${modificador >= 0 ? '+' : ''}${modificador}`, total, resultados);
+        }
+
+        function mostrarResultadoDado(formula, soma, modificador, total, detalhes = null) {
+            const resultado = document.getElementById('resultadoDado');
+            const texto = document.getElementById('textoResultado');
+            
+            let mensagem = `<strong>Fórmula:</strong> ${formula}<br>`;
+            
+            if (detalhes && detalhes.length > 1) {
+                mensagem += `<strong>Rolagens:</strong> [${detalhes.join(', ')}]<br>`;
+                mensagem += `<strong>Soma dos dados:</strong> ${soma}<br>`;
+            }
+            
+            if (modificador !== 0) {
+                mensagem += `<strong>Modificador:</strong> ${modificador >= 0 ? '+' : ''}${modificador}<br>`;
+            }
+            
+            mensagem += `<strong>Total:</strong> <span style="font-size: 1.5em; color: var(--cor-principal);">${total}</span>`;
+            
+            texto.innerHTML = mensagem;
+            resultado.style.display = 'block';
+        }
+
+        function adicionarHistorico(formula, resultado, detalhes = null) {
+            const agora = new Date().toLocaleTimeString();
+            const historico = document.getElementById('historicoRolagens');
+            
+            const item = document.createElement('div');
+            item.className = 'roll-item';
+            
+            let texto = `<strong>[${agora}]</strong> ${formula} = <strong>${resultado}</strong>`;
+            if (detalhes && detalhes.length > 1) {
+                texto += ` (${detalhes.join(', ')})`;
+            }
+            
+            item.innerHTML = texto;
+            historico.insertBefore(item, historico.firstChild);
+            
+            // Limitar histórico a 20 itens
+            while (historico.children.length > 20) {
+                historico.removeChild(historico.lastChild);
+            }
+        }
+
+        // ==================== SALVAR E CARREGAR ====================
+        function coletarDadosFicha() {
+            fichaData.perfil = {
+                nome: document.getElementById('nomePersonagem').value,
+                jogador: document.getElementById('nomeJogador').value,
+                raca: document.getElementById('raca').value,
+                classe: document.getElementById('classe').value,
+                idade: document.getElementById('idade').value,
+                genero: document.getElementById('genero').value,
+                altura: document.getElementById('altura').value,
+                peso: document.getElementById('peso').value,
+                alinhamento: document.getElementById('alinhamento').value,
+                origem: document.getElementById('origem').value,
+                historia: document.getElementById('historia').value,
+                nivel: document.getElementById('nivel').value,
+                xpAtual: document.getElementById('xpAtual').value,
+                xpNecessario: document.getElementById('xpNecessario').value,
+                titulo: document.getElementById('titulo').value,
+                vidaAtual: document.getElementById('vidaAtual').value,
+                vidaMax: document.getElementById('vidaMax').value,
+                manaAtual: document.getElementById('manaAtual').value,
+                manaMax: document.getElementById('manaMax').value
+            };
+            
+            fichaData.anotacoes = document.getElementById('anotacoes').value;
+        }
+
+        function salvarFicha() {
+            coletarDadosFicha();
+            const json = JSON.stringify(fichaData, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ficha_${fichaData.perfil.nome || 'personagem'}.json`;
+            a.click();
+            
+            // Também salva no localStorage
+            localStorage.setItem('fichaRPG', json);
+            alert('✅ Ficha salva com sucesso!');
+        }
+
+        function carregarFicha() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    try {
+                        fichaData = JSON.parse(event.target.result);
+                        aplicarDadosFicha();
+                        alert('✅ Ficha carregada com sucesso!');
+                    } catch (error) {
+                        alert('❌ Erro ao carregar ficha: arquivo inválido!');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        function carregarFichaAutomatica() {
+            const saved = localStorage.getItem('fichaRPG');
+            if (saved) {
+                try {
+                    fichaData = JSON.parse(saved);
+                    aplicarDadosFicha();
+                } catch (error) {
+                    console.error('Erro ao carregar ficha automática:', error);
+                }
+            }
+        }
+
+        function aplicarDadosFicha() {
+            // Aplicar dados do perfil
+            if (fichaData.perfil) {
+                Object.keys(fichaData.perfil).forEach(key => {
+                    const elemento = document.getElementById(key);
+                    if (elemento) {
+                        elemento.value = fichaData.perfil[key] || '';
+                    }
+                });
+            }
+            
+            // Recarregar todas as listas
+            recarregarAtributos();
+            recarregarRecursos();
+            recarregarHabilidades();
+            recarregarInventario();
+            recarregarPericias();
+            
+            // Aplicar anotações
+            document.getElementById('anotacoes').value = fichaData.anotacoes || '';
+            
+            // Atualizar recursos visuais
+            atualizarRecursoFixo('vida');
+            atualizarRecursoFixo('mana');
+            verificarSubidaNivel();
+        }
